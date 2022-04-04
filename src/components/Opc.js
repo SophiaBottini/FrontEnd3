@@ -4,14 +4,14 @@ class Opc extends Component{
         return(
                 <div className="opciones">
                    <div className="opcion">
-                        <button id="botonA" className="botones" onClick={this.props.handleClick}>
+                        <button id="A" className="botones" onClick={this.props.handleClick}>
                                 opcion A
                         </button>
                         <h2>{this.props.opcA}</h2>
                     </div>
 
                     <div className="opcion">
-                        <button id="botonB" className="botones" onClick={this.props.handleClick}>
+                        <button id="B" className="botones" onClick={this.props.handleClick}>
                                 opcion B
                         </button>
                         <h2>{this.props.opcB}</h2>

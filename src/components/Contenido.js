@@ -7,11 +7,33 @@ class Contenido extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      historiaActual: this.buscarHistoriaPorId("1"),
       historia: [],
-      cont: 0,
+      cont: 1,
       opcionAnterior: "",
-    };
+    }
+    this.handleClick=this.handleClick.bind(this)
   }
+
+  buscarHistoriaPorId=(id)=>{
+    const historiaActual=data.filter(item=>item.id===id);
+    return historiaActual[0]
+  }
+
+handleClick(e){
+  const seleccion=(e.target.id).toLowerCase();
+
+  if(this.state.cont ===5){
+    alert("Fin!")
+  }else{
+    this.setState({
+      cont: this.state.cont+1,
+      historiaActual: this.buscarHistoriaPorId(this.state.cont+1+seleccion),
+      opcionAnterior: seleccion,
+    })
+  }
+}
+
 
   componentDidUpdate(prevState) {
     if (prevState.cont !== this.state.cont) {
@@ -21,49 +43,16 @@ class Contenido extends Component {
 
 
 
-  buscasId = (id) => {
-    const nuevoArray =data.filter(obj=> obj.id === id);
-    return nuevoArray[0];
-  }
-
- 
-
-  handleClick = (e) => {
-    const opcion = e.target.id;
-    if (this.state.cont >= 7) {
-      alert("Fin.");
-    } else if (opcion === "botonA" && this.state.opcionAnterior !== "A") {
-      this.setState({
-        cont: this.state.cont + 1,
-        opcionAnterior: "A",
-      });
-    } else if (opcion === "botonA" && this.state.opcionAnterior === "A") {
-      this.setState({
-        cont: this.state.cont + 2,
-      });
-    } else if (opcion === "botonB" && this.state.opcionAnterior === "A") {
-      this.setState({
-        cont: this.state.cont + 3,
-        opcionAnterior: "B",
-      });
-    } else if (opcion === "botonB") {
-      this.setState({
-        cont: this.state.cont + 2,
-        opcionAnterior: "B",
-      });
-    }
-  };
- 
 
   render() {
     return (
       <div className="layout">
-        <h1 className="historia">{data[this.state.cont].historia}</h1>
+        <h1 className="historia">{this.state.historiaActual.historia}</h1>
 
         <Opc
           handleClick={this.handleClick}
-          opcA={data[this.state.cont].opciones.a}
-          opcB={data[this.state.cont].opciones.b}
+          opcA={this.state.historiaActual.opciones.a}
+          opcB={this.state.historiaActual.opciones.b}
         />
         <OpcElegidas
           opcionAnterior={this.state.opcionAnterior}
